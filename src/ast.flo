@@ -491,8 +491,15 @@ func prune_ast(node: @AST): void
         prune_ast(node.data._if_condition.else_branch)
     else if kind == AST_PRINT:
         prune_ast(node.data._print.value)
+    end
 
-
+         if kind == AST_CAST:           prune_ast(node.data._cast.typeInfo.arr_size_expr)
+    else if kind == AST_TYPE_TEST:      prune_ast(node.data._type_test.typeInfo.arr_size_expr)
+    else if kind == AST_NEW:            prune_ast(node.data._new_alloc.typeInfo.arr_size_expr)
+    else if kind == AST_SIZEOF:         prune_ast(node.data._size_of.typeInfo.arr_size_expr)
+    else if kind == AST_STRUCT_FIELD:   prune_ast(node.data._struct_field.typeInfo.arr_size_expr)
+    else if kind == AST_VAR_DECL:       prune_ast(node.data._var_decl.typeInfo.arr_size_expr)
+    else if kind == AST_PARAM:          prune_ast(node.data._func_params.typeInfo.arr_size_expr)
     end
 
 
